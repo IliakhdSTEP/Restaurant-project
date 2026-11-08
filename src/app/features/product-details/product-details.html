@@ -1,0 +1,159 @@
+
+<div class="product-page">
+  @if (loading()) {
+    <p class="status">Loading product...</p>
+  } @else if (error()) {
+    <div class="status" role="alert">
+      <p>{{ error() }}</p>
+      <a routerLink="/menu">Back to Menu</a>
+    </div>
+  } @else if (product(); as item) {
+    <section class="product-layout">
+      <div class="product-image">
+        <img
+          [src]="item.image"
+          [alt]="item.name"
+        />
+      </div>
+
+      <div class="product-information">
+        <h1>{{ item.name }}</h1>
+
+        <div class="rating">
+          <span class="stars" aria-hidden="true">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <span [class.filled]="item.rate >= star - 0.5">★</span>
+            }
+          </span>
+
+          <span class="rating-value">
+            ({{ item.rate.toFixed(1) }} rating)
+          </span>
+        </div>
+
+        <div class="price">
+          {{ item.price | currency:'USD' }}
+        </div>
+
+        @if (isVegetarian()) {
+          <span class="vegetarian">♧ Vegetarian</span>
+        }
+
+        <p class="description">
+          {{ item.description }}
+        </p>
+
+        @if (item.ingredients?.length) {
+          <div class="information-section">
+            <h3>Ingredients:</h3>
+
+            <ul class="ingredients">
+              @for (ingredient of item.ingredients ?? []; track $index) {
+                <li>{{ ingredient }}</li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (item.method) {
+          <div class="information-section">
+            <h3>Preparation Method:</h3>
+            <p class="method">{{ item.method }}</p>
+          </div>
+        }
+
+        <div class="purchase-actions">
+          <div class="quantity-control">
+            <button
+              type="button"
+              (click)="changeQuantity(-1)"
+              [disabled]="quantity() <= 1 || adding()"
+              aria-label="Decrease quantity"
+            >
+              −
+            </button>
+
+            <span>{{ quantity() }}</span>
+
+            <button
+              type="button"
+              (click)="changeQuantity(1)"
+              [disabled]="quantity() >= 99 || adding()"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="add-button"
+            (click)="addToCart()"
+            [disabled]="adding()"
+          >
+            {{ adding() ? 'Adding...' : 'Add to Cart' }}
+          </button>
+        </div>
+
+        @if (message()) {
+          <p class="cart-message" role="status">
+            {{ message() }}
+          </p>
+        }
+      </div>
+    </section>
+
+    @if (recommendations().length > 0) {
+      <section class="recommendations">
+        <h2>You May Also Like</h2>
+
+        <div class="recommendation-grid">
+          @for (recommended of recommendations(); track recommended.id) {
+            <article class="recommendation-card">
+              <a
+                class="recommendation-image"
+                routerLink="/product"
+                [queryParams]="{ id: recommended.id }"
+                [attr.aria-label]="'View ' + recommended.name"
+              >
+                <img
+                  [src]="recommended.image"
+                  [alt]="recommended.name"
+                  loading="lazy"
+                />
+              </a>
+
+              <div class="recommendation-content">
+                <a
+                  class="recommendation-title"
+                  routerLink="/product"
+                  [queryParams]="{ id: recommended.id }"
+                >
+                  {{ recommended.name }}
+                </a>
+
+                <p>{{ recommended.description }}</p>
+
+                <div class="recommendation-rating">
+                  ★ {{ recommended.rate.toFixed(1) }}
+                </div>
+
+                <div class="recommendation-price">
+                  {{ recommended.price | currency:'USD' }}
+                </div>
+
+                <a
+                  class="view-button"
+                  routerLink="/product"
+                  [queryParams]="{ id: recommended.id }"
+                >
+                  View Details
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+  }
+</div>

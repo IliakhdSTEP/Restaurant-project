@@ -1,0 +1,531 @@
+
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.product-page {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 40px 32px 72px;
+  color: #111;
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  align-items: start;
+}
+
+.product-image {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f7f7f7;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+  }
+}
+
+.product-information {
+  min-width: 0;
+
+  h1 {
+    margin: 0 0 16px;
+    font-size: clamp(28px, 2.7vw, 40px);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    overflow-wrap: anywhere;
+  }
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stars {
+  display: flex;
+  gap: 3px;
+  color: #cbd0d7;
+  font-size: 22px;
+
+  .filled {
+    color: #ff8c1a;
+  }
+}
+
+.rating-value {
+  color: #777;
+  font-size: 14px;
+}
+
+.price {
+  color: #ff6338;
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.vegetarian {
+  display: inline-flex;
+  align-items: center;
+  background: #45b451;
+  color: #fff;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.description {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 12px 0 28px;
+  overflow-wrap: anywhere;
+}
+
+.information-section {
+  margin-bottom: 26px;
+
+  h3 {
+    color: #111;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+}
+
+.ingredients {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    min-width: 0;
+    padding: 12px 14px 12px 28px;
+    border: 1px solid #ededed;
+    border-radius: 9px;
+    background: #fafafa;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 20px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff6338;
+    }
+  }
+}
+
+.method {
+  color: #666;
+  line-height: 1.75;
+  font-size: 15px;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.purchase-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+
+  button {
+    width: 48px;
+    height: 46px;
+    border: none;
+    background: transparent;
+    color: #111;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: #f5f5f5;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    min-width: 44px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.add-button,
+.view-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 14px 20px;
+  background: #ff6338;
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #f4512a;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.cart-message {
+  margin-top: 14px;
+  color: #298a3c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.recommendations {
+  margin-top: 76px;
+
+  h2 {
+    font-size: clamp(24px, 2.5vw, 30px);
+    font-weight: 700;
+    margin: 0 0 28px;
+    letter-spacing: -0.4px;
+  }
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.recommendation-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.recommendation-image {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+  }
+}
+
+.recommendation-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 18px;
+
+  p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 10px 0 16px;
+    flex: 1;
+    overflow-wrap: anywhere;
+  }
+}
+
+.recommendation-title {
+  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+
+  &:hover {
+    color: #ff6338;
+  }
+}
+
+.recommendation-rating {
+  color: #ff8c1a;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.recommendation-price {
+  color: #ff6338;
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.view-button {
+  margin-top: auto;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.status {
+  text-align: center;
+  padding: 80px 20px;
+  color: #666;
+  font-size: 16px;
+
+  a {
+    display: inline-block;
+    margin-top: 14px;
+    color: #ff6338;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .product-layout {
+    gap: 32px;
+  }
+
+  .product-image img {
+    height: 480px;
+  }
+
+  .recommendation-grid {
+    gap: 18px;
+  }
+
+  .recommendation-image img {
+    height: 180px;
+  }
+
+  .recommendation-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .product-page {
+    padding: 30px 24px 60px;
+  }
+
+  .product-layout {
+    gap: 28px;
+  }
+
+  .product-image img {
+    height: 420px;
+  }
+
+  .ingredients {
+    grid-template-columns: 1fr;
+  }
+
+  .recommendation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recommendation-image img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 700px) {
+  .product-page {
+    padding: 20px 16px 48px;
+  }
+
+  .product-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .product-image img {
+    height: auto;
+    max-height: 420px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .product-information h1 {
+    font-size: 29px;
+    margin-bottom: 14px;
+  }
+
+  .price {
+    font-size: 34px;
+  }
+
+  .description {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .ingredients {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .method {
+    font-size: 14px;
+  }
+
+  .purchase-actions {
+    gap: 16px;
+  }
+
+  .add-button {
+    min-height: 52px;
+  }
+
+  .recommendations {
+    margin-top: 52px;
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 22px;
+    }
+  }
+
+  .recommendation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .recommendation-image img {
+    height: 150px;
+  }
+
+  .recommendation-content {
+    padding: 12px;
+  }
+
+  .recommendation-title {
+    font-size: 15px;
+  }
+
+  .recommendation-content p {
+    font-size: 12px;
+  }
+
+  .recommendation-price {
+    font-size: 20px;
+  }
+
+  .view-button {
+    font-size: 13px;
+    padding: 11px 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .product-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .product-information h1 {
+    font-size: 27px;
+  }
+
+  .recommendation-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .recommendation-image img {
+    height: 200px;
+  }
+
+  .recommendation-content {
+    padding: 16px;
+  }
+
+  .recommendation-title {
+    font-size: 17px;
+  }
+
+  .recommendation-content p {
+    font-size: 14px;
+  }
+
+  .recommendation-price {
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recommendation-card,
+  .add-button,
+  .view-button,
+  .quantity-control button {
+    transition: none;
+  }
+}

@@ -1,0 +1,114 @@
+
+<div class="login-page">
+  <div class="login-card">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to your account</p>
+
+    <form (submit)="$event.preventDefault(); login()" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          [formField]="loginForm.email"
+        />
+
+        @if (submitted() && loginForm.email().invalid()) {
+          <small class="error">
+            Please enter a valid email.
+          </small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <div class="password-field">
+          <input
+            id="password"
+            class="custom-password-input"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            [formField]="loginForm.password"
+          />
+
+          <button
+            type="button"
+            class="eye-button"
+            (click)="showPassword.set(!showPassword())"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+          >
+            @if (showPassword()) {
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 3l18 18"/>
+                <path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c5.5 0 9 7 9 7a15 15 0 0 1-3.1 3.9"/>
+                <path d="M6.1 6.1C3.9 7.7 3 12 3 12s3.5 7 9 7 9-7 9-7z"/>
+                <path d="M6.1 6.1C3.9 7.7 3 12 3 12s3.5 7 9 7a9.7 9.7 0 0 0 4-.9"/>
+              </svg>
+            } @else {
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            }
+          </button>
+        </div>
+
+        @if (submitted() && loginForm.password().invalid()) {
+          <small class="error">Password is required.</small>
+        }
+      </div>
+
+      <div class="form-options">
+        <label class="remember">
+          <input
+            type="checkbox"
+            [formField]="loginForm.rememberMe"
+          />
+          Remember me
+        </label>
+
+        <a routerLink="/forgot-password">
+          Forgot password?
+        </a>
+      </div>
+
+      @if (error()) {
+        <p class="api-error">{{ error() }}</p>
+      }
+
+      <button
+        class="submit-button"
+        type="submit"
+        [disabled]="loading()"
+      >
+        {{ loading() ? 'Signing In...' : 'Sign In' }}
+      </button>
+    </form>
+
+    <div class="bottom-text">
+      <span class="or-text">or</span>
+      <p>
+        Don't have an account?
+        <a routerLink="/register">Sign up</a>
+      </p>
+    </div>
+  </div>
+</div>

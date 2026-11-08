@@ -1,0 +1,69 @@
+
+<div class="verify-page">
+  <div class="verify-card">
+    <h1>Verify Email</h1>
+
+    <p class="subtitle">
+      Enter the verification code sent to your email
+    </p>
+
+    <form (ngSubmit)="verifyEmail()" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="code">Verification Code</label>
+        <input
+          id="code"
+          type="text"
+          name="code"
+          [(ngModel)]="code"
+          placeholder="Enter verification code"
+          autocomplete="one-time-code"
+        />
+      </div>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      @if (success()) {
+        <p class="success">{{ success() }}</p>
+      }
+
+      @if (resendMessage()) {
+        <p class="success">{{ resendMessage() }}</p>
+      }
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="loading()"
+      >
+        {{ loading() ? 'Verifying...' : 'Verify Email' }}
+      </button>
+    </form>
+
+    <button
+      type="button"
+      class="resend-button"
+      [disabled]="resending()"
+      (click)="resendCode()"
+    >
+      {{ resending() ? 'Sending...' : 'Resend Verification Code' }}
+    </button>
+
+    <a routerLink="/login" class="back-link">
+      Back to Login
+    </a>
+  </div>
+</div>

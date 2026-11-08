@@ -1,0 +1,245 @@
+
+<section class="management-page">
+  <div class="page-header">
+    <div>
+      <h1>Product Management</h1>
+      <p>Create, edit and manage restaurant dishes.</p>
+    </div>
+
+    <button
+      type="button"
+      class="primary-btn add-product-btn"
+      [disabled]="saving() || loadingProduct()"
+      (click)="openCreateForm()"
+    >
+      + Add Product
+    </button>
+  </div>
+
+  @if (error()) {
+    <div class="alert error" role="alert">
+      {{ error() }}
+    </div>
+  }
+
+  @if (success()) {
+    <div class="alert success" role="status">
+      {{ success() }}
+    </div>
+  }
+
+  @if (loadingProduct()) {
+    <p class="message">Loading product details...</p>
+  }
+
+  @if (showForm()) {
+    <div class="form-panel">
+      <div class="form-header">
+        <h2>
+          {{ editingId() === null ? 'Add New Product' : 'Edit Product' }}
+        </h2>
+
+        <button
+          type="button"
+          class="close-btn"
+          [disabled]="saving()"
+          (click)="closeForm()"
+          aria-label="Close product form"
+        >
+          ✕
+        </button>
+      </div>
+
+      <form (ngSubmit)="saveProduct()">
+        <div class="form-grid">
+          <label>
+            Product Name
+            <input
+              name="name"
+              type="text"
+              [(ngModel)]="form.name"
+              required
+            />
+          </label>
+
+          <label>
+            Price ($)
+            <input
+              name="price"
+              type="number"
+              min="0"
+              step="0.01"
+              [(ngModel)]="form.price"
+              required
+            />
+          </label>
+
+          <label>
+            Category
+            <select
+              name="categoryId"
+              [(ngModel)]="form.categoryId"
+              required
+            >
+              <option [ngValue]="0">Select category</option>
+
+              @for (category of categories(); track category.id) {
+                <option [ngValue]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            </select>
+          </label>
+
+          <label>
+            Spiciness (0-5)
+            <input
+              name="spiciness"
+              type="number"
+              min="0"
+              max="5"
+              step="1"
+              [(ngModel)]="form.spiciness"
+            />
+          </label>
+
+          <label class="full">
+            Image URL
+            <input
+              name="image"
+              type="text"
+              [(ngModel)]="form.image"
+              required
+            />
+          </label>
+
+          <label class="full">
+            Description
+            <textarea
+              name="description"
+              rows="3"
+              [(ngModel)]="form.description"
+              required
+            ></textarea>
+          </label>
+
+          <label class="full">
+            Preparation Method
+            <textarea
+              name="method"
+              rows="3"
+              [(ngModel)]="form.method"
+              required
+            ></textarea>
+          </label>
+
+          <label class="full">
+            Ingredients (separate with commas)
+            <textarea
+              name="ingredients"
+              rows="2"
+              [ngModel]="ingredientsText"
+              (ngModelChange)="onIngredientsChange($event)"
+            ></textarea>
+          </label>
+        </div>
+
+        <label class="checkbox-row">
+          <input
+            type="checkbox"
+            name="vegetarian"
+            [(ngModel)]="form.vegetarian"
+          />
+          Vegetarian
+        </label>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="secondary-btn"
+            [disabled]="saving()"
+            (click)="closeForm()"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="primary-btn"
+            [disabled]="saving()"
+          >
+            {{ saving() ? 'Saving...' : 'Save Product' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <div class="toolbar">
+    <input
+      type="search"
+      placeholder="Search products..."
+      aria-label="Search products"
+      [ngModel]="search()"
+      (ngModelChange)="search.set($event)"
+    />
+
+    <span>{{ filteredProducts().length }} products</span>
+  </div>
+
+  @if (loading()) {
+    <p class="message">Loading products...</p>
+  } @else {
+    <div class="product-grid">
+      @for (product of filteredProducts(); track product.id) {
+        <article class="product-card">
+          <a
+            class="product-image"
+            [routerLink]="['/product', product.id]"
+            [attr.aria-label]="'View ' + product.name"
+          >
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              loading="lazy"
+            />
+          </a>
+
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+
+            <div class="product-bottom">
+              <strong>${{ product.price.toFixed(2) }}</strong>
+              <span>★ {{ product.rate.toFixed(1) }}</span>
+            </div>
+
+            <div class="card-actions">
+              <button
+                type="button"
+                class="edit-btn"
+                [disabled]="loadingProduct() || saving() || deletingId() !== null"
+                (click)="openEditForm(product)"
+              >
+                Edit
+              </button>
+
+              @if (product.canDelete) {
+                <button
+                  type="button"
+                  class="delete-btn"
+                  [disabled]="deletingId() !== null || saving() || loadingProduct()"
+                  (click)="deleteProduct(product)"
+                >
+                  {{ deletingId() === product.id ? 'Deleting...' : 'Delete' }}
+                </button>
+              }
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <p class="message">No products found.</p>
+      }
+    </div>
+  }
+</section>

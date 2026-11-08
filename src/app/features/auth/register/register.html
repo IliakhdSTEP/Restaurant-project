@@ -1,0 +1,126 @@
+
+<div class="register-page">
+  <div class="register-card">
+    <h1>Create Account</h1>
+    <p class="subtitle">Join us today</p>
+
+    <form (submit)="$event.preventDefault(); register()" novalidate>
+      <div class="name-row">
+        <div class="field">
+          <label for="firstName">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            placeholder="John"
+            autocomplete="given-name"
+            [formField]="registerForm.firstName"
+          />
+
+          @if (submitted() && registerForm.firstName().invalid()) {
+            <small>First name is required.</small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            placeholder="Doe"
+            autocomplete="family-name"
+            [formField]="registerForm.lastName"
+          />
+
+          @if (submitted() && registerForm.lastName().invalid()) {
+            <small>Last name is required.</small>
+          }
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          [formField]="registerForm.email"
+        />
+
+        @if (submitted() && registerForm.email().invalid()) {
+          <small>Please enter a valid email.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+
+        <div class="password-wrapper">
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="Enter your password"
+            autocomplete="new-password"
+            [formField]="registerForm.password"
+          />
+
+          <button
+            type="button"
+            class="eye-button"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+          >
+            @if (showPassword()) {
+              <svg viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3l18 18"/>
+                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                <path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c5 0 9 4 10 7a12.8 12.8 0 0 1-3.1 4.3"/>
+                <path d="M6.2 6.2C4.2 7.5 2.8 9.5 2 12c1 3 5 7 10 7 1.4 0 2.8-.3 4-.8"/>
+              </svg>
+            } @else {
+              <svg viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            }
+          </button>
+        </div>
+
+        @if (submitted() && registerForm.password().invalid()) {
+          <small>
+            Password must contain 8 characters, uppercase,
+            lowercase, number and special character.
+          </small>
+        }
+      </div>
+
+      <div class="password-rules">
+        <p>• At least 8 characters</p>
+        <p>• Uppercase and lowercase letters</p>
+        <p>• At least one number</p>
+        <p>• At least one special character</p>
+      </div>
+
+      @if (error()) {
+        <div class="error-message">{{ error() }}</div>
+      }
+
+      <button
+        class="submit-button"
+        type="submit"
+        [disabled]="loading()"
+      >
+        {{ loading() ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+
+    <p class="signin-text">
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+
+<div class="cart-page">
+
+  @if (successMessage()) {
+    <div class="success-toast" role="status">
+      <span class="success-icon">✓</span>
+
+      <div class="success-content">
+        <strong>Thank you for your purchase!</strong>
+        <p>Your order has been placed and is being processed.</p>
+      </div>
+
+      <button
+        type="button"
+        class="toast-close"
+        (click)="closeMessage()"
+        aria-label="Close notification"
+      >
+        ×
+      </button>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="cart-loading">
+      Loading your cart...
+    </div>
+  } @else {
+
+    @if (error()) {
+      <div class="cart-error" role="alert">
+        {{ error() }}
+      </div>
+    }
+
+    @if (items().length === 0) {
+      <div class="empty-cart">
+
+        <svg
+          class="empty-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 8h14l1 13H4L5 8z"/>
+          <path d="M8 8V6a4 4 0 0 1 8 0v2"/>
+          <path d="M9 13a3 3 0 0 0 6 0"/>
+        </svg>
+
+        <h1>Your cart is empty</h1>
+
+        <p>
+          Looks like you haven't added anything
+          to your cart yet
+        </p>
+
+        <a routerLink="/menu" class="browse-button">
+          Browse Menu
+        </a>
+      </div>
+    } @else {
+
+      <div class="cart-heading">
+        <h1>Shopping Cart</h1>
+        <p>{{ totalItems() }} items</p>
+      </div>
+
+      <div class="cart-layout">
+
+        <div class="cart-items">
+
+          @for (item of items(); track item.id) {
+            <article class="cart-item">
+
+              <img
+                [src]="item.product.image"
+                [alt]="item.product.name"
+                class="product-image"
+              />
+
+              <div class="product-details">
+                <h3>{{ item.product.name }}</h3>
+                <p>{{ item.product.description }}</p>
+
+                <div class="quantity-control">
+                  <button
+                    type="button"
+                    (click)="changeQuantity(item, -1)"
+                    [disabled]="processing() || checkoutLoading() || checkoutCompleted() || item.quantity <= 1"
+                    [attr.aria-label]="'Decrease quantity of ' + item.product.name"
+                  >
+                    −
+                  </button>
+
+                  <span>{{ item.quantity }}</span>
+
+                  <button
+                    type="button"
+                    (click)="changeQuantity(item, 1)"
+                    [disabled]="processing() || checkoutLoading() || checkoutCompleted()"
+                    [attr.aria-label]="'Increase quantity of ' + item.product.name"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="item-actions">
+                <button
+                  type="button"
+                  class="remove-button"
+                  (click)="removeItem(item)"
+                  [disabled]="processing() || checkoutLoading() || checkoutCompleted()"
+                  [attr.aria-label]="'Remove ' + item.product.name"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 6h18"/>
+                    <path d="M8 6V4h8v2"/>
+                    <path d="M6 6l1 14h10l1-14"/>
+                    <path d="M10 10v7M14 10v7"/>
+                  </svg>
+                </button>
+
+                <div class="item-price">
+                  <span>
+                    {{ item.product.price | currency:'USD' }} each
+                  </span>
+
+                  <strong>
+                    {{
+                      item.product.price * item.quantity
+                        | currency:'USD'
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+            </article>
+          }
+
+        </div>
+
+        <aside class="order-summary">
+          <h2>Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ subtotal() | currency:'USD' }}</span>
+          </div>
+
+          <div class="summary-row total-row">
+            <strong>Total</strong>
+            <strong>{{ total() | currency:'USD' }}</strong>
+          </div>
+
+          <button
+            type="button"
+            class="checkout-button"
+            (click)="checkout()"
+            [disabled]="checkoutLoading() || checkoutCompleted() || processing() || loading()"
+          >
+            {{
+              checkoutLoading()
+                ? 'Processing...'
+                : checkoutCompleted()
+                  ? 'Order Placed'
+                  : 'Proceed to Checkout'
+            }}
+          </button>
+        </aside>
+
+      </div>
+    }
+  }
+</div>

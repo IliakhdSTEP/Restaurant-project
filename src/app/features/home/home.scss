@@ -1,0 +1,427 @@
+
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.hero {
+  min-height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  color: white;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url('https://restaurant.stepacademy.ge/restaurant-food-spread.png')
+      center / cover no-repeat;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1.12;
+  font-weight: 700;
+  margin: 0 0 22px;
+  overflow-wrap: anywhere;
+}
+
+.hero p {
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.5;
+  margin: 0 0 40px;
+}
+
+.order-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 52px;
+  padding: 16px 38px;
+  background: #ff6633;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 22px;
+  transition: background 0.3s, transform 0.3s;
+
+  &:hover {
+    background: #e65c2e;
+    transform: translateY(-3px);
+  }
+}
+
+.popular {
+  padding: 70px 20px;
+  background: white;
+
+  h2 {
+    text-align: center;
+    font-size: 36px;
+    margin: 0 0 40px;
+  }
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.dishes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.dish-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.dish-image {
+  height: 235px;
+  background: #f2f2f2;
+  overflow: hidden;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+}
+
+.dish-card:hover .dish-image img {
+  transform: scale(1.05);
+}
+
+.dish-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 20px;
+
+  h3 {
+    font-size: 21px;
+    margin: 0 0 14px;
+    overflow-wrap: anywhere;
+  }
+}
+
+.dish-title-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: #ff6338;
+  }
+}
+
+.dish-description {
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 15px;
+
+  span {
+    color: #ff8800;
+    font-size: 22px;
+  }
+}
+
+.dish-info .price {
+  color: #ff6633;
+  font-size: 28px;
+  margin: 0 0 25px;
+}
+
+.dish-info button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 13px;
+  background: #ff6633;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+
+  &:hover:not(:disabled) {
+    background: #e65c2e;
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.message {
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+  padding: 30px;
+}
+
+.our-story {
+  padding: 70px 20px;
+  background: #fafafa;
+}
+
+.story-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.story-image {
+  min-width: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 445px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.story-content {
+  min-width: 0;
+
+  h2 {
+    font-size: 34px;
+    margin: 0 0 20px;
+    color: #111;
+  }
+
+  p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+}
+
+.story-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  margin-top: 8px;
+  padding: 13px 20px;
+  background: #ff6633;
+  color: white;
+  text-decoration: none;
+  border-radius: 9px;
+  font-size: 16px;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #e65c2e;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 620px;
+  }
+
+  .dishes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .story-container {
+    gap: 30px;
+  }
+
+  .story-content p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 800px) {
+  .our-story {
+    padding: 55px 20px;
+  }
+
+  .story-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .story-image img {
+    height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 520px;
+    padding: 65px 18px;
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 42px);
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+
+  .hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .order-btn {
+    min-height: 48px;
+    padding: 13px 28px;
+    font-size: 17px;
+  }
+
+  .popular {
+    padding: 50px 15px;
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .dishes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .dish-image {
+    height: 220px;
+  }
+
+  .dish-info {
+    padding: 18px;
+  }
+
+  .dish-info h3 {
+    font-size: 19px;
+  }
+
+  .dish-info .price {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  .our-story {
+    padding: 50px 16px;
+  }
+
+  .story-container {
+    gap: 25px;
+  }
+
+  .story-image img {
+    height: 260px;
+  }
+
+  .story-content h2 {
+    font-size: 29px;
+  }
+
+  .story-content p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .story-btn {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    min-height: 480px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .dish-image {
+    height: 190px;
+  }
+
+  .story-image img {
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dish-card,
+  .dish-image img,
+  .order-btn,
+  .story-btn,
+  .dish-info button {
+    transition: none;
+  }
+}
